@@ -1,10 +1,10 @@
 [package]
-name = "hello-wasm"
+name = "svg-cleaner-wasm-wrapper"
 version = "0.1.0"
 authors = ["Shane Cranor"]
-description = "A sample project with wasm-pack"
+description = "A rust wasm wrapper for svgcleaner"
 license = "MIT/Apache-2.0"
-repository = "https://github.com/shanecranor/hello-wasm"
+repository = "https://github.com/shanecranor/svg-cleaner-webui"
 edition = "2018"
 
 [lib]
