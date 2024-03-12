@@ -4,8 +4,10 @@ import "./App.css";
 import {
   Button,
   Group,
+  NumberInput,
   Switch,
   TextInput,
+  Text,
   useMantineColorScheme,
 } from "@mantine/core";
 import init, {
@@ -93,42 +95,58 @@ const App = observer(() => {
       >
         Clean SVG
       </Button>
-      {Object.keys(cleaningOptions.get()).map((key) => {
-        const value = cleaningOptions.get()[key as keyof CleaningOptions];
-        let valString = "";
-        if (typeof value === "boolean") {
-          valString = value ? "true" : "false";
+      <div className="cleaning-options">
+        {Object.keys(cleaningOptions.get()).map((key) => {
+          const value = cleaningOptions.get()[key as keyof CleaningOptions];
+          let valString = "";
+          if (typeof value === "boolean") {
+            valString = value ? "true" : "false";
+            return (
+              <div key={key} className="cleaning-option boolean">
+                <Switch
+                  className="switch"
+                  checked={Boolean(value)}
+                  label={`${key}: ${valString}`}
+                  onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                    cleaningOptions.set((prev) => ({
+                      ...prev,
+                      [key as keyof CleaningOptions]:
+                        event.currentTarget.checked,
+                    }));
+                  }}
+                />
+              </div>
+            );
+          }
+          if (typeof value === "number") {
+            return (
+              <div key={key} className="cleaning-option number">
+                <NumberInput
+                  className="number-input"
+                  style={{ width: "100px" }}
+                  value={value}
+                  aria-label={key}
+                  onChange={(value: string | number) => {
+                    cleaningOptions.set((prev) => ({
+                      ...prev,
+                      [key as keyof CleaningOptions]: value,
+                    }));
+                  }}
+                />
+                <Text size="sm">
+                  {key}: {value.toString()}
+                </Text>
+              </div>
+            );
+          }
           return (
             <div key={key}>
-              <Switch
-                checked={Boolean(value)}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  console.log("fuck");
-                  cleaningOptions.set((prev) => ({
-                    ...prev,
-                    [key as keyof CleaningOptions]: event.currentTarget.checked,
-                  }));
-                }}
-              />
+              UNKNOWN TYPE
               {key}: {valString}
             </div>
           );
-        }
-        if (typeof value === "number") {
-          valString = value.toString();
-        }
-        return (
-          <div key={key}>
-            <Switch
-              checked={value}
-              onChange={(checked) => {
-                cleaningOptions.set({ [key]: checked });
-              }}
-            />
-            {key}: {valString}
-          </div>
-        );
-      })}
+        })}
+      </div>
       {/* <pre>{cleanSvgCode}</pre> */}
 
       <div dangerouslySetInnerHTML={{ __html: cleanSvgCode }} />

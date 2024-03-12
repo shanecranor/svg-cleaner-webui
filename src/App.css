@@ -18,6 +18,21 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+.cleaning-options {
+  text-align: left;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  > .cleaning-option {
+    .number-input {
+      display: inline-block;
+      margin-right: 16px;
+    }
+    p {
+      display: inline-block;
+    }
+  }
+}
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
