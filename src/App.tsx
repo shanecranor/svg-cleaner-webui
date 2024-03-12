@@ -123,7 +123,8 @@ const App = observer(() => {
               <div key={key} className="cleaning-option number">
                 <NumberInput
                   className="number-input"
-                  style={{ width: "100px" }}
+                  style={{ width: "48px" }}
+                  size="xs"
                   value={value}
                   aria-label={key}
                   onChange={(value: string | number) => {
