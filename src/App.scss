@@ -1,0 +1,62 @@
+#root {
+  max-width: 100dvw;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 300px; // Main content takes as much space as possible, aside is 300px
+  grid-template-areas:
+    "header header"
+    "main aside";
+  min-height: 100vh;
+  gap: 16px;
+
+  header {
+    grid-area: header;
+    padding: 1rem;
+    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  main {
+    grid-area: main;
+    padding: 1rem;
+  }
+
+  aside {
+    grid-area: aside;
+    padding: 1rem;
+  }
+}
+
+// Responsive adjustments for smaller screens
+@media (max-width: 768px) {
+  .app {
+    grid-template-columns: 1fr; // Make it a single column on smaller screens
+    grid-template-areas:
+      "header"
+      "main"
+      "aside";
+  }
+}
+
+.before,
+.after {
+  min-width: 300px;
+}
+.cleaning-options {
+  text-align: left;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  > .cleaning-option {
+    .number-input {
+      display: inline-block;
+      margin-right: 16px;
+    }
+    p {
+      display: inline-block;
+    }
+  }
+}
