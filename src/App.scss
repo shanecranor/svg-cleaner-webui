@@ -1,12 +1,15 @@
-#root {
-  max-width: 100dvw;
+#root,
+body {
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  overflow-x: hidden;
 }
 
 .app {
+  box-sizing: border-box;
+  max-width: 100dvw;
   display: grid;
-  grid-template-columns: 1fr 300px; // Main content takes as much space as possible, aside is 300px
+  grid-template-columns: calc(100% - 300px - 16px) 300px; // Main content takes as much space as possible, aside is 300px
   grid-template-areas:
     "header header"
     "main aside";
@@ -15,8 +18,9 @@
 
   header {
     grid-area: header;
-    padding: 1rem;
-    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    border-bottom: 1px solid
+      color-mix(in srgb, 20% var(--mantine-color-text), 80% rgba(0, 0, 0, 0));
   }
 
   main {
