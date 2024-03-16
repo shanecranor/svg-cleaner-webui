@@ -41,7 +41,7 @@ export const CleaningOptionsSidebar = observer(
                   onChange={(value: string | number) => {
                     cleaningOptions$.set((prev) => ({
                       ...prev,
-                      [key as keyof CleaningOptions]: value,
+                      [key as keyof CleaningOptions]: value || 0, //prevent typeof = string
                     }));
                   }}
                 />
