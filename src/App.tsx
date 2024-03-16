@@ -44,6 +44,22 @@ const App = observer(() => {
     };
     loadWasm();
   }, []);
+  const tryCleanSvg = () => {
+    try {
+      setCleanSvgCode(
+        clean_svg(inputSvgCode, JSON.stringify(cleaningOptions$.get()))
+      );
+    } catch (err) {
+      if (typeof err === "string") {
+        console.error("An error occurred while cleaning the SVG:", err);
+        errorText$.set(err);
+      } else {
+        console.error("An error occurred while cleaning the SVG:", err);
+        errorText$.set("Unknown error");
+      }
+      open();
+    }
+  };
   return (
     <div className="app">
       <Modal
@@ -79,26 +95,7 @@ const App = observer(() => {
           value={inputSvgCode}
           onChange={(event) => setInputSvgCode(event.currentTarget.value)}
         />
-        <Button
-          onClick={() => {
-            try {
-              setCleanSvgCode(
-                clean_svg(inputSvgCode, JSON.stringify(cleaningOptions$.get()))
-              );
-            } catch (err) {
-              if (typeof err === "string") {
-                console.error("An error occurred while cleaning the SVG:", err);
-                errorText$.set(err);
-              } else {
-                console.error("An error occurred while cleaning the SVG:", err);
-                errorText$.set("Unknown error");
-              }
-              open();
-            }
-          }}
-        >
-          Clean SVG
-        </Button>
+        <Button onClick={tryCleanSvg}>Clean SVG</Button>
         <SvgPreview cleanSvgCode={cleanSvgCode} inputSvgCode={inputSvgCode} />
       </main>
       <aside>
