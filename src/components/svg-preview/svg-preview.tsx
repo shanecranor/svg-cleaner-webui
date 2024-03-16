@@ -8,31 +8,37 @@ export function SvgPreview({
   inputSvgCode: string;
 }) {
   return (
-    <Group>
-      <Stack>
-        <img src={`data:image/svg+xml,${encodeURIComponent(cleanSvgCode)}`} />
+    <div className="c-svg-preview">
+      <div className="image-container">
+        <img
+          className="after"
+          src={`data:image/svg+xml,${encodeURIComponent(cleanSvgCode)}`}
+        />
         <Text>After {(new Blob([cleanSvgCode]).size / 1024).toFixed(2)}kb</Text>
-      </Stack>
-      <Stack>
-        <img src={`data:image/svg+xml,${encodeURIComponent(inputSvgCode)}`} />
+      </div>
+      <div className="image-container">
+        <img
+          className="before"
+          src={`data:image/svg+xml,${encodeURIComponent(inputSvgCode)}`}
+        />
         <Text>
           Before {(new Blob([inputSvgCode]).size / 1024).toFixed(2)}kb
         </Text>
-      </Stack>
+      </div>
       {/* TODO: Add a diff viewer to highlight any compression artifacts */}
-      {/* <Stack>
+      <div className="image-container">
         <div className="diff">
-          <div
+          <img
             className="img1"
-            dangerouslySetInnerHTML={{ __html: cleanSvgCode }}
+            src={`data:image/svg+xml,${encodeURIComponent(inputSvgCode)}`}
           />
-          <div
+          <img
             className="img2"
-            dangerouslySetInnerHTML={{ __html: inputSvgCode }}
+            src={`data:image/svg+xml,${encodeURIComponent(cleanSvgCode)}`}
           />
         </div>
         <Text>Diff</Text>
-      </Stack> */}
-    </Group>
+      </div>
+    </div>
   );
 }

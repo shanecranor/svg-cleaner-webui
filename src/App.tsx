@@ -78,13 +78,15 @@ const App = observer(() => {
         </Stack>
       </Modal>
       <header>
+        <Title>Browser Based SVG Compressor</Title>
+        <Text>
+          SVG optimizer powered by WebAssembly, Rust, and RazrFalcon's
+          (deprecated){" "}
+          <a href="https://github.com/RazrFalcon/svgcleaner">
+            svg-cleaner repo
+          </a>
+        </Text>
         <Group>
-          SVG Cleaner Web Interface
-          <nav>
-            <a href="https://github.com/RazrFalcon/svgcleaner">
-              svg-cleaner repo
-            </a>
-          </nav>
           <Button onClick={() => setColorScheme("light")}>Light</Button>
           <Button onClick={() => setColorScheme("dark")}>Dark</Button>
         </Group>

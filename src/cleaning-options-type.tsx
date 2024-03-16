@@ -39,9 +39,9 @@ export interface CleaningOptions {
 }
 
 export const DEFAULT_OPTIONS: CleaningOptions = {
-  remove_unused_defs: false,
-  convert_shapes: false,
-  remove_title: false,
+  remove_unused_defs: true,
+  convert_shapes: true,
+  remove_title: true,
   remove_desc: true,
   remove_metadata: true,
   remove_dupl_linear_gradients: true,
@@ -54,10 +54,10 @@ export const DEFAULT_OPTIONS: CleaningOptions = {
   regroup_gradient_stops: true,
   remove_invalid_stops: true,
   remove_invisible_elements: true,
-  resolve_use: false,
+  resolve_use: true,
   remove_version: true,
   remove_unreferenced_ids: true,
-  trim_ids: false, //dangerous?
+  trim_ids: true,
   remove_text_attributes: true,
   remove_unused_coordinates: true,
   remove_default_attributes: true,
@@ -70,10 +70,10 @@ export const DEFAULT_OPTIONS: CleaningOptions = {
   paths_to_relative: true,
   remove_unused_segments: true,
   convert_segments: true,
-  append_newline: true,
-  apply_transform_to_paths: true,
-  coordinates_precision: 1,
-  properties_precision: 1,
-  paths_coordinates_precision: 1,
-  transforms_precision: 1,
+  append_newline: false, //enable to add a newline at the end of the file
+  apply_transform_to_paths: false, //usually disabled by default
+  coordinates_precision: 6,
+  properties_precision: 6,
+  paths_coordinates_precision: 8,
+  transforms_precision: 8,
 };

@@ -1,0 +1,28 @@
+.c-svg-preview {
+  container-type: size;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  //center
+  justify-content: center;
+  align-items: flex-start;
+  background: #303030;
+  height: 100%;
+
+  > .image-container {
+    flex-grow: 1;
+    max-height: 100cqh;
+    img {
+      max-width: 50cqw;
+      max-height: 70cqh;
+    }
+    .img1 {
+      position: absolute;
+    }
+    .img2 {
+      position: absolute;
+      //belnd mode difference
+      mix-blend-mode: difference;
+    }
+  }
+}
