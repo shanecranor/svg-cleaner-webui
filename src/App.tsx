@@ -23,10 +23,11 @@ import { observer, useObservable } from "@legendapp/state/react";
 import { CleaningOptionsSidebar } from "./components/cleaning-options-sidebar/cleaning-options-sidebar.js";
 import { CleaningOptions, DEFAULT_OPTIONS } from "./cleaning-options-type.js";
 import { SvgPreview } from "./components/svg-preview/svg-preview.js";
+import { TEMP_SVG } from "./temp-svg.js";
 
 const App = observer(() => {
   const { setColorScheme } = useMantineColorScheme();
-  const [inputSvgCode, setInputSvgCode] = useInputState("");
+  const [inputSvgCode, setInputSvgCode] = useInputState(TEMP_SVG);
   const [wasmModule, setWasmModule] = useState<InitOutput | null>(null);
   const [cleanSvgCode, setCleanSvgCode] = useState<string>("");
   const cleaningOptions$ = useObservable<CleaningOptions>(DEFAULT_OPTIONS);

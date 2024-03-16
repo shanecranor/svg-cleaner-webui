@@ -10,17 +10,11 @@ export function SvgPreview({
   return (
     <Group>
       <Stack>
-        <div
-          className="after"
-          dangerouslySetInnerHTML={{ __html: cleanSvgCode }}
-        />
+        <img src={`data:image/svg+xml,${encodeURIComponent(cleanSvgCode)}`} />
         <Text>After {(new Blob([cleanSvgCode]).size / 1024).toFixed(2)}kb</Text>
       </Stack>
       <Stack>
-        <div
-          className="before"
-          dangerouslySetInnerHTML={{ __html: inputSvgCode }}
-        />
+        <img src={`data:image/svg+xml,${encodeURIComponent(inputSvgCode)}`} />
         <Text>
           Before {(new Blob([inputSvgCode]).size / 1024).toFixed(2)}kb
         </Text>
