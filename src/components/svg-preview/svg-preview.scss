@@ -4,24 +4,34 @@
   flex-direction: row;
   flex-wrap: wrap;
   //center
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
-  background: #303030;
+  //   background: #303030;
   height: 100%;
 
   > .image-container {
+    // width:
+    // background: red;
     flex-grow: 1;
     max-height: 100cqh;
     img {
       max-width: 50cqw;
       max-height: 70cqh;
+      //   background: blue;
+    }
+    p {
+      width: fit-content;
+      //   background: blue;
+    }
+    .hidden {
+      visibility: hidden;
     }
     .img1 {
       position: absolute;
     }
     .img2 {
-      position: absolute;
-      //belnd mode difference
+      //   position: absolute;
+      //blend mode difference
       mix-blend-mode: difference;
     }
   }

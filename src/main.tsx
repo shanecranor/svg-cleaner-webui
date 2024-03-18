@@ -5,9 +5,11 @@ import "./index.css";
 import { MantineProvider } from "@mantine/core";
 // import mantine css
 import "@mantine/core/styles.layer.css";
+import { theme } from "./theme.ts";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <MantineProvider defaultColorScheme="auto">
+    <MantineProvider defaultColorScheme="auto" theme={theme}>
       <App />
     </MantineProvider>
   </React.StrictMode>
