@@ -22,6 +22,7 @@ import {
   IconBrightnessDown,
 } from "@tabler/icons-react";
 import light from "./assets/lights.svg";
+import gradient from "./assets/gradient.svg";
 import init, {
   InitOutput,
   clean_svg,
@@ -71,7 +72,7 @@ const App = observer(() => {
   return (
     <div className="app">
       <div className="god-rays">
-        <img src={light} alt="" />
+        <img src={gradient} alt="" />
       </div>
       <Modal
         className="error-modal"
@@ -93,6 +94,7 @@ const App = observer(() => {
             svgzip
           </Title>
           <ActionIcon
+            className="color-scheme-toggle"
             onClick={() => toggleColorScheme()}
             aria-label="toggle color scheme"
             variant="transparent"
@@ -109,18 +111,31 @@ const App = observer(() => {
       </header>
       <main>
         <section className="hero">
-          <Title>
-            Compress SVGs instantly,<br></br> no upload needed.
-          </Title>
-          <Text>
-            SVG optimizer powered by WebAssembly, Rust, and RazrFalcon's
-            (deprecated){" "}
-            <a href="https://github.com/RazrFalcon/svgcleaner">
-              svg-cleaner repo
-            </a>
-            . All the files stay on your device and the page will even work
-            offline
-          </Text>
+          <div className="hero-text">
+            <Title className="gradient-text">
+              Compress SVGs instantly,<br></br> no upload needed.
+            </Title>
+            <Text>
+              SVG optimizer powered by WebAssembly, Rust, and RazrFalcon's
+              (deprecated){" "}
+              <a href="https://github.com/RazrFalcon/svgcleaner">
+                svg-cleaner repo
+              </a>
+              . All files stay on your device and the page will even work
+              offline
+            </Text>
+          </div>
+          <div className="hero-button">
+            <Button
+              className="select-button"
+              size="xl"
+              variant="outline"
+              radius="xl"
+              color="gray.6"
+            >
+              Select a File
+            </Button>
+          </div>
         </section>
         <section className="compression-zone">
           <TextInput

@@ -4,12 +4,61 @@ body {
   margin: 0 auto;
   overflow-x: hidden;
   --max-width: 1222px;
-  // --mantine-color-body: var(--mantine-color-dark-9);
+  --mantine-color-body: var(--mantine-color-dark-9);
+  background-size: 75px 75px;
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.015) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  .color-scheme-toggle {
+    transition: all 0.3s ease;
+    &:hover {
+      filter: drop-shadow(0 0 0.5rem var(--mantine-color-blue-6));
+    }
+  }
+}
+
+html[data-mantine-color-scheme="light"] {
+  #root,
+  body {
+    --mantine-color-body: color-mix(
+      in srgb,
+      white 85%,
+      var(--mantine-color-blue-6)
+    );
+    background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.03) 1px,
+        transparent 1px
+      ),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  }
+  .god-rays {
+    img {
+      filter: contrast(1) brightness(1) saturate(1);
+    }
+  }
+  .gradient-text {
+    background: linear-gradient(0deg, #333, #000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.gradient-text {
+  background: linear-gradient(0deg, #888, #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .god-rays {
-  position: fixed;
+  position: absolute;
+  z-index: -10;
   img {
-    width: 100dvw;
+    width: max(100dvw, 100dvh);
+    transform-origin: top;
+    transform: scaleY(75%);
     height: auto;
   }
 }
@@ -32,12 +81,30 @@ body {
   main {
     grid-area: main;
     padding: 16px;
+    width: 100%;
     > .hero {
-      max-width: 650px;
-      margin: 100px 0px;
-      h1 {
-        font-size: 52px;
-        margin-bottom: 24px;
+      container-type: inline-size;
+      max-width: 790px;
+      width: 100%;
+      margin: 100px auto;
+      > .hero-text {
+        width: 100%;
+        h1 {
+          font-size: max(8cqw, 42px);
+          margin-bottom: 24px;
+        }
+        p {
+          font-size: max(2.5cqw, 16px);
+          margin-bottom: 24px;
+        }
+      }
+      > .hero-button {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 100px auto;
+        .select-button {
+        }
       }
     }
   }
