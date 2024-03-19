@@ -93,11 +93,12 @@ html[data-mantine-color-scheme="light"] {
       > .hero-text {
         width: 100%;
         h1 {
-          font-size: max(8cqw, 42px);
+          font-size: max(8.4cqw, 45px);
           margin-bottom: 24px;
         }
         p {
-          font-size: max(2.5cqw, 16px);
+          word-break: keep-all;
+          font-size: max(2.6cqw, 16px);
           margin-bottom: 24px;
           color: var(--mantine-color-dark-1);
         }

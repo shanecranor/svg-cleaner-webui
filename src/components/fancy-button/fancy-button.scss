@@ -31,8 +31,8 @@
 }
 html[data-mantine-color-scheme="light"] {
   .glow-effect {
-    --glow-line-color: var(--mantine-color-blue-4);
-    --glow-blur-color: var(--mantine-color-blue-4);
+    --glow-line-color: rgba(0, 0, 0, 0.8);
+    --glow-blur-color: black;
   }
   .fancy-button {
     backdrop-filter: blur(2px) brightness(1.03);
