@@ -33,6 +33,7 @@ import { CleaningOptionsSidebar } from "./components/cleaning-options-sidebar/cl
 import { CleaningOptions, DEFAULT_OPTIONS } from "./cleaning-options-type.js";
 import { SvgPreview } from "./components/svg-preview/svg-preview.js";
 import { TEMP_SVG } from "./temp-svg.js";
+import { FancyButton } from "./components/fancy-button/fancy-button.js";
 const App = observer(() => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [inputSvgCode, setInputSvgCode] = useInputState(TEMP_SVG);
@@ -126,15 +127,7 @@ const App = observer(() => {
             </Text>
           </div>
           <div className="hero-button">
-            <Button
-              className="select-button"
-              size="xl"
-              variant="outline"
-              radius="xl"
-              color="gray.6"
-            >
-              Select a File
-            </Button>
+            <FancyButton>Select a File</FancyButton>
           </div>
         </section>
         <section className="compression-zone">
