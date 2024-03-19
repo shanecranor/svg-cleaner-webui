@@ -40,6 +40,9 @@ html[data-mantine-color-scheme="light"] {
       filter: contrast(1) brightness(1) saturate(1);
     }
   }
+  .hero-text p {
+    color: var(--mantine-color-dark-5) !important;
+  }
   .gradient-text {
     background: linear-gradient(0deg, #333, #000);
     -webkit-background-clip: text;
@@ -96,6 +99,7 @@ html[data-mantine-color-scheme="light"] {
         p {
           font-size: max(2.5cqw, 16px);
           margin-bottom: 24px;
+          color: var(--mantine-color-dark-1);
         }
       }
       > .hero-button {

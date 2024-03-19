@@ -130,7 +130,7 @@ const App = observer(() => {
             <FancyButton>Select a File</FancyButton>
           </div>
         </section>
-        <section className="compression-zone">
+        {/* <section className="compression-zone">
           <TextInput
             label="Paste SVG code"
             placeholder="<svg/>"
@@ -138,11 +138,11 @@ const App = observer(() => {
             onChange={(event) => setInputSvgCode(event.currentTarget.value)}
           />
           <Button onClick={tryCleanSvg}>Clean SVG</Button>
-          <SvgPreview cleanSvgCode={cleanSvgCode} inputSvgCode={inputSvgCode} />
-        </section>
+          <SvgPreview cleanSvgCode={cleanSvgCode} inputSvgCode={inputSvgCode} /> 
+        </section> */}
       </main>
       <aside>
-        <CleaningOptionsSidebar cleaningOptions$={cleaningOptions$} />
+        {/* <CleaningOptionsSidebar cleaningOptions$={cleaningOptions$} /> */}
       </aside>
     </div>
   );
