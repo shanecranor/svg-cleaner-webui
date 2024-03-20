@@ -36,12 +36,13 @@ import { CleaningOptions, DEFAULT_OPTIONS } from "./cleaning-options-type.js";
 import { SvgPreview } from "./components/svg-preview/svg-preview.js";
 import { TEMP_SVG } from "./temp-svg.js";
 import { FancyButton } from "./components/fancy-inputs/fancy-button.js";
+import { getFileSize } from "./util.js";
 
 const App = observer(() => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [inputSvgCode, setInputSvgCode] = useInputState(TEMP_SVG);
   const [wasmModule, setWasmModule] = useState<InitOutput | null>(null);
-  const [cleanSvgCode, setCleanSvgCode] = useState<string>("");
+  const cleanSvgCode = useObservable<string>("");
   const cleaningOptions$ = useObservable<CleaningOptions>(DEFAULT_OPTIONS);
   const [opened, { open, close }] = useDisclosure(false);
   const errorText$ = useObservable<string>("");
@@ -63,15 +64,18 @@ const App = observer(() => {
     reader.onload = (event) => {
       if (event.target) {
         setInputSvgCode(event.target.result as string);
-        tryCleanSvg();
+        tryCleanSvg(event.target.result as string);
       }
     };
     reader.readAsText(file);
   };
-  const tryCleanSvg = () => {
+  const tryCleanSvg = (fileString?: string) => {
     try {
-      setCleanSvgCode(
-        clean_svg(inputSvgCode, JSON.stringify(cleaningOptions$.get()))
+      cleanSvgCode.set(
+        clean_svg(
+          fileString || inputSvgCode,
+          JSON.stringify(cleaningOptions$.get())
+        )
       );
     } catch (err) {
       if (typeof err === "string") {
@@ -148,14 +152,26 @@ const App = observer(() => {
             </Button>
           </div>
         </section>
-        {/* <section className="compression-zone">
-          <Stack>
-            <Button onClick={tryCleanSvg}>Clean SVG</Button>
-          </Stack>
-        </section> */}
-        {/* <section className="svg-preview">
-          <SvgPreview cleanSvgCode={cleanSvgCode} inputSvgCode={inputSvgCode} />
-        </section> */}
+        <section className="results">
+          <div className="results-text">
+            <Text>File size reduced by </Text>
+            <Title className="huge">
+              {(
+                ((getFileSize(inputSvgCode) - getFileSize(cleanSvgCode.get())) /
+                  getFileSize(inputSvgCode)) *
+                100
+              ).toFixed(1)}
+              %
+            </Title>
+            <Text>The cleaned SVG is displayed below.</Text>
+          </div>
+        </section>
+        <section className="svg-preview">
+          <SvgPreview
+            cleanSvgCode={cleanSvgCode.get()}
+            inputSvgCode={inputSvgCode}
+          />
+        </section>
       </main>
       <aside>
         {/* <CleaningOptionsSidebar cleaningOptions$={cleaningOptions$} /> */}

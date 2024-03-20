@@ -122,9 +122,24 @@ html[data-mantine-color-scheme="light"] {
         }
       }
     }
-    > .compression-zone {
-      max-width: 790px;
-      margin: 0 auto;
+    > .results {
+      > .results-text {
+        container-type: inline-size;
+        max-width: 790px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .huge {
+          font-size: max(8.4cqw, 45px);
+          //glow
+          text-shadow: 0px 10px 120px var(--mantine-color-blue-3),
+            0 0 20px
+              color-mix(in srgb, transparent 70%, var(--mantine-color-blue-3)),
+            0 0 200px var(--mantine-color-blue-3);
+        }
+      }
     }
   }
 
