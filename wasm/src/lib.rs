@@ -113,12 +113,42 @@ impl From<JsCleaningOptions> for CleaningOptions {
         }
     }
 }
+
+use svgdom::Indent;
+use svgdom::ListSeparator;
+use svgdom::AttributesOrder;
+
 #[wasm_bindgen]
 pub fn clean_svg(svg_data: &str, options_json: &str) -> Result<String, JsValue> {
     let js_options: JsCleaningOptions = serde_json::from_str(options_json).map_err(|e| JsValue::from_str(&e.to_string()))?;
     let cleaning_opt = CleaningOptions::from(js_options);
-    let parse_opt = ParseOptions::default(); 
-    let write_opt = WriteOptions::default(); 
+    let parse_opt = ParseOptions{
+        parse_comments: false,
+        parse_declarations: false,
+        parse_unknown_attributes: false,
+        parse_unknown_elements: false,
+        parse_px_unit: false,
+        skip_unresolved_classes: true,
+        skip_invalid_attributes: false,
+        skip_invalid_css: false,
+        skip_paint_fallback: false,
+    };
+    // let write_opt = WriteOptions::default(); 
+    let write_opt: WriteOptions =  WriteOptions {
+        indent: Indent::None,
+        attributes_indent: Indent::None,
+        use_single_quote: false,
+        trim_hex_colors: true,
+        write_hidden_attributes: false,
+        remove_leading_zero: true,
+        use_compact_path_notation: true,
+        join_arc_to_flags: false,
+        remove_duplicated_path_commands: true,
+        use_implicit_lineto_commands: true,
+        simplify_transform_matrices: true,
+        list_separator: ListSeparator::Space,
+        attributes_order: AttributesOrder::Alphabetical,
+    };
     // let cleaning_opt = CleaningOptions::default(); 
 
     // Parse the SVG data
