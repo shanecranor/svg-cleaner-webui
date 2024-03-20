@@ -3,27 +3,15 @@ import { useEffect, useState } from "react";
 import "./App.scss";
 import {
   Button,
-  Group,
-  NumberInput,
-  Switch,
-  TextInput,
   Text,
   useMantineColorScheme,
   Stack,
   Modal,
   Title,
   ActionIcon,
-  Box,
-  Textarea,
   FileButton,
 } from "@mantine/core";
-import {
-  IconSunFilled,
-  IconMoon,
-  IconMoonFilled,
-  IconBrightnessDown,
-} from "@tabler/icons-react";
-import light from "./assets/lights.svg";
+import { IconSunFilled, IconBrightnessDown } from "@tabler/icons-react";
 import gradient from "./assets/gradient.svg";
 import init, {
   InitOutput,
