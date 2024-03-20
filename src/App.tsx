@@ -14,6 +14,8 @@ import {
   Title,
   ActionIcon,
   Box,
+  Textarea,
+  FileButton,
 } from "@mantine/core";
 import {
   IconSunFilled,
@@ -33,7 +35,8 @@ import { CleaningOptionsSidebar } from "./components/cleaning-options-sidebar/cl
 import { CleaningOptions, DEFAULT_OPTIONS } from "./cleaning-options-type.js";
 import { SvgPreview } from "./components/svg-preview/svg-preview.js";
 import { TEMP_SVG } from "./temp-svg.js";
-import { FancyButton } from "./components/fancy-button/fancy-button.js";
+import { FancyButton } from "./components/fancy-inputs/fancy-button.js";
+
 const App = observer(() => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const [inputSvgCode, setInputSvgCode] = useInputState(TEMP_SVG);
@@ -54,6 +57,17 @@ const App = observer(() => {
     };
     loadWasm();
   }, []);
+  const loadFile = (file: File | null) => {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target) {
+        setInputSvgCode(event.target.result as string);
+        tryCleanSvg();
+      }
+    };
+    reader.readAsText(file);
+  };
   const tryCleanSvg = () => {
     try {
       setCleanSvgCode(
@@ -100,7 +114,6 @@ const App = observer(() => {
             aria-label="toggle color scheme"
             variant="transparent"
             color={colorScheme === "dark" ? "white" : "dark"}
-            // size="xl"
           >
             {colorScheme === "dark" ? (
               <IconSunFilled />
@@ -127,18 +140,21 @@ const App = observer(() => {
             </Text>
           </div>
           <div className="hero-button">
-            <FancyButton>Select a File</FancyButton>
+            <FileButton onChange={loadFile}>
+              {(props) => <FancyButton {...props}>Select a File</FancyButton>}
+            </FileButton>
+            <Button className="paste-button" variant="transparent">
+              Or Paste SVG
+            </Button>
           </div>
         </section>
         {/* <section className="compression-zone">
-          <TextInput
-            label="Paste SVG code"
-            placeholder="<svg/>"
-            value={inputSvgCode}
-            onChange={(event) => setInputSvgCode(event.currentTarget.value)}
-          />
-          <Button onClick={tryCleanSvg}>Clean SVG</Button>
-          <SvgPreview cleanSvgCode={cleanSvgCode} inputSvgCode={inputSvgCode} /> 
+          <Stack>
+            <Button onClick={tryCleanSvg}>Clean SVG</Button>
+          </Stack>
+        </section> */}
+        {/* <section className="svg-preview">
+          <SvgPreview cleanSvgCode={cleanSvgCode} inputSvgCode={inputSvgCode} />
         </section> */}
       </main>
       <aside>

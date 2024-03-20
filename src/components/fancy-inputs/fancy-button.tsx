@@ -1,8 +1,13 @@
-import { Button, FileButton } from "@mantine/core";
-import "./fancy-button.scss";
-import { useEffect, useState } from "react";
-export function FancyButton({ children }: { children: React.ReactNode }) {
-  const [files, setFiles] = useState<File[] | null>(null);
+import { Button, ButtonProps } from "@mantine/core";
+import "./fancy.scss";
+import { useEffect } from "react";
+export function FancyButton({
+  children,
+  ...props
+}: {
+  children: React.ReactNode;
+  props?: ButtonProps;
+}) {
   useEffect(() => {
     (function setGlowEffectRx() {
       const glowEffects = document.querySelectorAll(".glow-effect");
@@ -16,14 +21,13 @@ export function FancyButton({ children }: { children: React.ReactNode }) {
     })();
   });
   return (
-    // <FileButton onChange={setFiles} multiple>
-    //   {() => (
     <Button
       className="fancy-button glow-effect"
       size="xl"
       variant="outline"
       radius="xl"
       color="gray.6"
+      {...props}
     >
       {children}
       <svg className="glow-container">
@@ -31,7 +35,5 @@ export function FancyButton({ children }: { children: React.ReactNode }) {
         <rect pathLength="100" stroke-linecap="round" className="glow-line" />
       </svg>
     </Button>
-    //   )}
-    // </FileButton>
   );
 }
