@@ -76,6 +76,10 @@ html[data-mantine-color-scheme="light"] {
   header {
     position: fixed;
     // backdrop-filter: blur(0px); // add this if we ever have more items in the header
+    @media screen and (max-width: 1000px) {
+      //needed for mobile so the header doesn't clash with the page
+      backdrop-filter: blur(10px);
+    }
     z-index: 100;
     width: 100%;
     padding: 12px 16px;
