@@ -74,6 +74,9 @@ html[data-mantine-color-scheme="light"] {
   align-items: center;
   min-height: 100vh;
   header {
+    position: fixed;
+    // backdrop-filter: blur(0px); // add this if we ever have more items in the header
+    z-index: 100;
     width: 100%;
     padding: 12px 16px;
     .header-items {
@@ -92,7 +95,7 @@ html[data-mantine-color-scheme="light"] {
       container-type: inline-size;
       max-width: 790px;
       width: 100%;
-      margin: 100px auto;
+      margin: 20dvh auto;
       margin-bottom: 50px;
       > .hero-text {
         width: 100%;
