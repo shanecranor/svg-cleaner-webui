@@ -16,11 +16,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
-    max-height: 100cqh;
+    flex-grow: 0.2;
+
     // background: red;
     img {
       width: 100%;
+      height: 100%;
+      object-fit: contain; /* Maintain aspect ratio without cropping */
+
       max-width: 50cqw;
       max-height: 70cqh;
     }

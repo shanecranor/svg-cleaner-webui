@@ -24,13 +24,20 @@ import { CleaningOptions, DEFAULT_OPTIONS } from "./cleaning-options-type.js";
 import { SvgPreview } from "./components/svg-preview/svg-preview.js";
 import { TEMP_SVG } from "./temp-svg.js";
 import { FancyButton } from "./components/fancy-inputs/fancy-button.js";
-import { downloadSVG, getFileSize } from "./util.js";
+import {
+  calculateFileSizeDecrease,
+  downloadSVG,
+  getFileSize,
+  loadAndProcessFile,
+} from "./util.js";
+import { Results } from "./components/results/results.js";
 
 const App = observer(() => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const [inputSvgCode, setInputSvgCode] = useInputState(TEMP_SVG);
+
   const [wasmModule, setWasmModule] = useState<InitOutput | null>(null);
-  const cleanSvgCode = useObservable<string>("");
+  const inputSvg = useObservable<string>("");
+  const cleanSvg = useObservable<string>("");
   const cleaningOptions$ = useObservable<CleaningOptions>(DEFAULT_OPTIONS);
   const [opened, { open, close }] = useDisclosure(false);
   const errorText$ = useObservable<string>("");
@@ -46,24 +53,19 @@ const App = observer(() => {
     };
     loadWasm();
   }, []);
-  const loadFile = (file: File | null) => {
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      if (event.target) {
-        setInputSvgCode(event.target.result as string);
-        tryCleanSvg(event.target.result as string);
-      }
-    };
-    reader.readAsText(file);
+  const handleFileUpload = (file: File | null) => {
+    loadAndProcessFile(file, (svgString: string) => {
+      inputSvg.set(svgString);
+      tryCleanSvg(svgString);
+    });
   };
   const tryCleanSvg = (fileString?: string) => {
     try {
       const cleaned = clean_svg(
-        fileString || inputSvgCode,
+        fileString || inputSvg.get(),
         JSON.stringify(cleaningOptions$.get())
       );
-      cleanSvgCode.set(cleaned);
+      cleanSvg.set(cleaned);
       downloadSVG(cleaned, "cleaned.svg");
     } catch (err) {
       if (typeof err === "string") {
@@ -132,7 +134,7 @@ const App = observer(() => {
             </Text>
           </div>
           <div className="hero-button">
-            <FileButton onChange={loadFile}>
+            <FileButton onChange={handleFileUpload}>
               {(props) => <FancyButton {...props}>Select a File</FancyButton>}
             </FileButton>
             <Button className="paste-button" variant="transparent">
@@ -140,26 +142,15 @@ const App = observer(() => {
             </Button>
           </div>
         </section>
-        <section className="results">
-          <div className="results-text">
-            <Text>File size reduced by </Text>
-            <Title className="huge">
-              {(
-                ((getFileSize(inputSvgCode) - getFileSize(cleanSvgCode.get())) /
-                  getFileSize(inputSvgCode)) *
-                100
-              ).toFixed(1)}
-              %
-            </Title>
-            <Text>The cleaned SVG is displayed below.</Text>
-          </div>
-        </section>
-        <section className="svg-preview">
-          <SvgPreview
-            cleanSvgCode={cleanSvgCode.get()}
-            inputSvgCode={inputSvgCode}
-          />
-        </section>
+        {cleanSvg.get() && (
+          <section>
+            <Results cleanSvgCode={cleanSvg} inputSvgCode={inputSvg} />
+            <SvgPreview
+              cleanSvgCode={cleanSvg.get()}
+              inputSvgCode={inputSvg.get()}
+            />
+          </section>
+        )}
       </main>
       <aside>
         {/* <CleaningOptionsSidebar cleaningOptions$={cleaningOptions$} /> */}
