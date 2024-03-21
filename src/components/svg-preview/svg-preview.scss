@@ -1,23 +1,28 @@
 .c-svg-preview {
+  max-width: 1600px;
+  margin: 0 auto;
   container-type: size;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   //center
-  justify-content: space-between;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   //   background: #303030;
   height: 700px;
 
   > .image-container {
-    // width:
-    // background: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     flex-grow: 1;
     max-height: 100cqh;
+    // background: red;
     img {
+      width: 100%;
       max-width: 50cqw;
       max-height: 70cqh;
-      //   background: blue;
     }
     p {
       width: fit-content;

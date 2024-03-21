@@ -24,7 +24,7 @@ import { CleaningOptions, DEFAULT_OPTIONS } from "./cleaning-options-type.js";
 import { SvgPreview } from "./components/svg-preview/svg-preview.js";
 import { TEMP_SVG } from "./temp-svg.js";
 import { FancyButton } from "./components/fancy-inputs/fancy-button.js";
-import { getFileSize } from "./util.js";
+import { downloadSVG, getFileSize } from "./util.js";
 
 const App = observer(() => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
@@ -59,12 +59,12 @@ const App = observer(() => {
   };
   const tryCleanSvg = (fileString?: string) => {
     try {
-      cleanSvgCode.set(
-        clean_svg(
-          fileString || inputSvgCode,
-          JSON.stringify(cleaningOptions$.get())
-        )
+      const cleaned = clean_svg(
+        fileString || inputSvgCode,
+        JSON.stringify(cleaningOptions$.get())
       );
+      cleanSvgCode.set(cleaned);
+      downloadSVG(cleaned, "cleaned.svg");
     } catch (err) {
       if (typeof err === "string") {
         console.error("An error occurred while cleaning the SVG:", err);

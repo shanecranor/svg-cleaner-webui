@@ -63,8 +63,8 @@ export const DEFAULT_OPTIONS: CleaningOptions = {
   remove_default_attributes: true,
   remove_xmlns_xlink_attribute: true,
   remove_needless_attributes: true,
-  remove_gradient_attributes: true,
-  join_style_attributes: 1,
+  remove_gradient_attributes: false,
+  join_style_attributes: 2, //0: none, 1:no, 2:some, 3:all
   apply_transform_to_gradients: true,
   apply_transform_to_shapes: true,
   paths_to_relative: true,

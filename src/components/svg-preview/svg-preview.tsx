@@ -11,11 +11,18 @@ export function SvgPreview({
   return (
     <div className="c-svg-preview">
       <div className="image-container">
+        <Text>Before {getFileSize(inputSvgCode).toFixed(2)}kb</Text>
+        <img
+          className="before"
+          src={`data:image/svg+xml,${encodeURIComponent(inputSvgCode)}`}
+        />
+      </div>
+      <div className="image-container">
+        <Text>After {getFileSize(cleanSvgCode).toFixed(2)}kb</Text>
         <img
           className="after"
           src={`data:image/svg+xml,${encodeURIComponent(cleanSvgCode)}`}
         />
-        <Text>After {getFileSize(cleanSvgCode).toFixed(2)}kb</Text>
       </div>
       {/* TODO: Add a diff viewer to highlight any compression artifacts */}
       {/* <div className="image-container">
@@ -29,13 +36,6 @@ export function SvgPreview({
         />
         <Text>Diff</Text>
       </div> */}
-      <div className="image-container">
-        <img
-          className="before"
-          src={`data:image/svg+xml,${encodeURIComponent(inputSvgCode)}`}
-        />
-        <Text>Before {getFileSize(inputSvgCode).toFixed(2)}kb</Text>
-      </div>
     </div>
   );
 }
