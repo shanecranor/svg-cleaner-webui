@@ -12,6 +12,7 @@ body {
       transparent 1px
     ),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+
   .color-scheme-toggle {
     transition: all 0.3s ease;
     &:hover {
@@ -35,17 +36,21 @@ html[data-mantine-color-scheme="light"] {
       ),
       linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
   }
+
   .god-rays {
     img {
       filter: contrast(1) brightness(1) saturate(1);
     }
   }
+
   .hero-text p {
     color: var(--mantine-color-dark-5) !important;
   }
+
   .paste-button {
     color: black;
   }
+
   .gradient-text {
     background: linear-gradient(0deg, #333, #000);
     -webkit-background-clip: text;
@@ -58,22 +63,26 @@ html[data-mantine-color-scheme="light"] {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .god-rays {
   position: absolute;
   z-index: -10;
-  img {
+
+  > img {
     width: max(100dvw, 100dvh);
     transform-origin: top;
     transform: scaleY(75%);
     height: auto;
   }
 }
+
 .app {
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  header {
+
+  > header {
     position: fixed;
     // backdrop-filter: blur(0px); // add this if we ever have more items in the header
     @media screen and (max-width: 1000px) {
@@ -83,7 +92,8 @@ html[data-mantine-color-scheme="light"] {
     z-index: 100;
     width: 100%;
     padding: 12px 16px;
-    .header-items {
+
+    > .header-items {
       max-width: var(--max-width);
       margin: 0 auto;
       display: flex;
@@ -95,18 +105,22 @@ html[data-mantine-color-scheme="light"] {
     grid-area: main;
     padding: 16px;
     width: 100%;
+
     > .hero {
       container-type: inline-size;
       max-width: 790px;
       width: 100%;
       margin: 20dvh auto;
       margin-bottom: 50px;
+
       > .hero-text {
         width: 100%;
+
         h1 {
           font-size: max(8.4cqw, 45px);
           margin-bottom: 24px;
         }
+
         p {
           word-break: keep-all;
           font-size: max(2.6cqw, 16px);
@@ -114,6 +128,7 @@ html[data-mantine-color-scheme="light"] {
           color: var(--mantine-color-dark-1);
         }
       }
+
       > .hero-button {
         width: 100%;
         display: flex;
@@ -121,8 +136,10 @@ html[data-mantine-color-scheme="light"] {
         justify-content: center;
         align-items: center;
         margin-top: 70px;
+
         > .paste-button {
           opacity: 0.7;
+
           &:hover {
             opacity: 1;
           }
@@ -137,29 +154,19 @@ html[data-mantine-color-scheme="light"] {
   }
 }
 
-// // Responsive adjustments for smaller screens
-// @media (max-width: 768px) {
-//   .app {
-//     grid-template-columns: 1fr; // Make it a single column on smaller screens
-//     grid-template-areas:
-//       "header"
-//       "main"
-//       "aside";
+// TODO: Remove this and move everything to a modal/separate page
+// .cleaning-options {
+//   text-align: left;
+//   display: grid;
+//   gap: 4px;
+//   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+//   > .cleaning-option {
+//     .number-input {
+//       display: inline-block;
+//       margin-right: 16px;
+//     }
+//     p {
+//       display: inline-block;
+//     }
 //   }
 // }
-
-.cleaning-options {
-  text-align: left;
-  display: grid;
-  gap: 4px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  > .cleaning-option {
-    .number-input {
-      display: inline-block;
-      margin-right: 16px;
-    }
-    p {
-      display: inline-block;
-    }
-  }
-}
