@@ -1,6 +1,7 @@
 #root,
 body {
   width: 100%;
+  max-width: 100dvw !important;
   margin: 0 auto;
   overflow-x: hidden;
   --max-width: 1222px;
@@ -80,7 +81,8 @@ html[data-mantine-color-scheme="light"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 100dvw;
 
   > header {
     position: fixed;
