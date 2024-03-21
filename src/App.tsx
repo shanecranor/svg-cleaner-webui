@@ -29,17 +29,22 @@ import {
   downloadSVG,
   getFileSize,
   loadAndProcessFile,
+  scrollToId,
 } from "./util.js";
 import { Results } from "./components/results/results.js";
+import { PasteSvgModal } from "./components/paste-svg-modal/paste-svg-modal.js";
 
 const App = observer(() => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const [pasteOpened, { open: openPaste, close: closePaste }] =
+    useDisclosure(false);
 
   const [wasmModule, setWasmModule] = useState<InitOutput | null>(null);
   const inputSvg = useObservable<string>("");
   const cleanSvg = useObservable<string>("");
   const cleaningOptions$ = useObservable<CleaningOptions>(DEFAULT_OPTIONS);
-  const [opened, { open, close }] = useDisclosure(false);
+  const [errorOpened, { open: openError, close: closeError }] =
+    useDisclosure(false);
   const errorText$ = useObservable<string>("");
 
   useEffect(() => {
@@ -53,10 +58,12 @@ const App = observer(() => {
     };
     loadWasm();
   }, []);
+
   const handleFileUpload = (file: File | null) => {
     loadAndProcessFile(file, (svgString: string) => {
       inputSvg.set(svgString);
       tryCleanSvg(svgString);
+      scrollToId("scroll-results");
     });
   };
   const tryCleanSvg = (fileString?: string) => {
@@ -75,7 +82,7 @@ const App = observer(() => {
         console.error("An error occurred while cleaning the SVG:", err);
         errorText$.set("Unknown error");
       }
-      open();
+      openError();
     }
   };
   return (
@@ -83,10 +90,20 @@ const App = observer(() => {
       <div className="god-rays">
         <img src={gradient} alt="" />
       </div>
+      <PasteSvgModal
+        opened={pasteOpened}
+        submitSvg={(svgString) => {
+          inputSvg.set(svgString);
+          tryCleanSvg(svgString);
+          closePaste();
+          scrollToId("scroll-results");
+        }}
+        close={closePaste}
+      />
       <Modal
         className="error-modal"
-        opened={opened}
-        onClose={close}
+        opened={errorOpened}
+        onClose={closeError}
         title="Error parsing SVG"
       >
         <Stack>
@@ -137,7 +154,11 @@ const App = observer(() => {
             <FileButton onChange={handleFileUpload}>
               {(props) => <FancyButton {...props}>Select a File</FancyButton>}
             </FileButton>
-            <Button className="paste-button" variant="transparent">
+            <Button
+              className="paste-button"
+              variant="transparent"
+              onClick={openPaste}
+            >
               Or Paste SVG
             </Button>
           </div>
@@ -151,10 +172,11 @@ const App = observer(() => {
             />
           </section>
         )}
+        <div id="scroll-results" />
       </main>
-      <aside>
-        {/* <CleaningOptionsSidebar cleaningOptions$={cleaningOptions$} /> */}
-      </aside>
+      {/* <aside>
+        <CleaningOptionsSidebar cleaningOptions$={cleaningOptions$} />
+      </aside> */}
     </div>
   );
 });

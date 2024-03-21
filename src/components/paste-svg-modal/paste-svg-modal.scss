@@ -1,0 +1,9 @@
+.c-paste-svg-modal {
+  .mantine-Modal-content {
+    border: 1px solid var(--mantine-color-dark-4);
+    textarea {
+      max-height: calc(100dvh - 200px);
+      opacity: 0.7;
+    }
+  }
+}

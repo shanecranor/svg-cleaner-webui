@@ -47,3 +47,10 @@ export function calculateFileSizeDecrease(original: string, newString: string) {
 
   return percentageDecrease;
 }
+
+export function scrollToId(id: string) {
+  const results = document.getElementById(id);
+  if (results) {
+    results.scrollIntoView({ behavior: "smooth" });
+  }
+}
