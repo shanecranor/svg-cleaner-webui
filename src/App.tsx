@@ -108,8 +108,8 @@ const App = observer(() => {
       >
         <Stack>
           <Text>
-            An error occurred while parsing the SVG. Please ensure that the SVG
-            code is valid.
+            An error occurred while parsing the SVG. The SVG may be invalid or
+            use features not supported by svg-cleaner.
           </Text>
           <pre>{errorText$.get()}</pre>
         </Stack>
