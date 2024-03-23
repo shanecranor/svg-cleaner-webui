@@ -85,6 +85,7 @@ const App = observer(() => {
       openError();
     }
   };
+
   return (
     <div className="app">
       <div className="god-rays">
@@ -154,6 +155,7 @@ const App = observer(() => {
             <FileButton onChange={handleFileUpload} accept="image/svg">
               {(props) => <FancyButton {...props}>Select a File</FancyButton>}
             </FileButton>
+
             <Button
               className="paste-button"
               variant="transparent"

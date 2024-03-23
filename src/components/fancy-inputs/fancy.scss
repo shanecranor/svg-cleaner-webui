@@ -1,13 +1,8 @@
 //ty Kevin Powell (and Aaron Iker) for the sweet glow effect
-// *,
-// *::before,
-// *::after {
-//   box-sizing: border-box;
-// }
 
 .fancy-button {
+  position: relative;
   overflow: visible;
-  //   border-radius: 999px;
   transition: all 0.3s ease-in-out;
   backdrop-filter: blur(5px) brightness(1.2);
 
@@ -27,7 +22,7 @@
   --glow-offset: 3px;
   --animation-speed: 1200ms;
   /* do not change, used for calculations */
-  --container-offset: 100px;
+  --container-offset: 900px;
   position: relative;
 }
 html[data-mantine-color-scheme="light"] {
@@ -58,13 +53,13 @@ html[data-mantine-color-scheme="light"] {
   inset: calc(var(--container-offset) / -2);
   width: calc(100% + var(--container-offset));
   height: calc(100% + var(--container-offset));
-  opacity: 0;
+  opacity: 1;
 }
 
 .glow-effect:is(:hover) {
   .glow-container {
     opacity: 1;
-    transition: opacity 0.1s ease-in-out;
+    // transition: opacity 0.1s ease-in-out;
     //   animation: glow-visibility ease-in-out var(--animation-speed);
   }
   :is(.glow-line, .glow-blur) {
@@ -77,8 +72,17 @@ html[data-mantine-color-scheme="light"] {
 
     stroke-dasharray: 40px 0px;
   }
+  :is(.bg-line) {
+    stroke: rgba(
+      255,
+      255,
+      255,
+      calc(0.01 * (4.1 - var(--index)) * (4.1 - var(--index)))
+    );
+    // opacity: 0.1;
+    stroke-dasharray: 0px 25px 25px 0px 0px 0px 0px 0px;
+  }
 }
-
 .glow-blur,
 .glow-line {
   width: calc(100% - var(--container-offset) + var(--glow-offset));
@@ -93,6 +97,23 @@ html[data-mantine-color-scheme="light"] {
   stroke-dasharray: 0px 40px;
 }
 
+.bg-line {
+  $tlen: 0.7s;
+  $tt: cubic-bezier(0.25, 0.14, 0, 1.49);
+  transition: width $tlen $tt, height $tlen $tt, x $tlen $tt, y $tlen $tt,
+    stroke $tlen $tt, rx $tlen $tt, stroke-dasharray 0.3s ease;
+  width: calc(100% - var(--container-offset) + var(--bg-offset));
+  height: calc(100% - var(--container-offset) + var(--bg-offset));
+  x: calc((var(--container-offset) / 2) + calc(var(--bg-offset) / -2));
+  y: calc((var(--container-offset) / 2) + calc(var(--bg-offset) / -2));
+  fill: transparent;
+  stroke: rgba(255, 255, 255, calc(0.01 * (4.5 - var(--index))));
+  opacity: 1;
+  // stroke-dashoffset: 0px;
+  stroke-dasharray: 25px 25px 0px 0px 0px 0px 0px 0px;
+  stroke-width: 30px;
+}
+
 .glow-line {
   stroke: var(--glow-line-color);
   stroke-width: 0px; //var(--glow-line-thickness);
@@ -104,6 +125,19 @@ html[data-mantine-color-scheme="light"] {
   stroke-width: 0px; //var(--glow-blur-size);
 }
 
+@keyframes background-animation {
+  0% {
+    stroke-dashoffset: 0px;
+    stroke-width: 2px;
+  }
+  50% {
+    stroke-width: 31px;
+  }
+  100% {
+    stroke-dashoffset: -100px;
+    stroke-width: 2px;
+  }
+}
 @keyframes glow-visibility {
   0%,
   100% {
