@@ -12,7 +12,7 @@ import {
   FileButton,
 } from "@mantine/core";
 import { IconSunFilled, IconBrightnessDown } from "@tabler/icons-react";
-import gradient from "./assets/gradient.svg";
+import gradient from "./assets/gradient2.svg";
 import init, {
   InitOutput,
   clean_svg,
@@ -151,7 +151,7 @@ const App = observer(() => {
             </Text>
           </div>
           <div className="hero-button">
-            <FileButton onChange={handleFileUpload}>
+            <FileButton onChange={handleFileUpload} accept="image/svg">
               {(props) => <FancyButton {...props}>Select a File</FancyButton>}
             </FileButton>
             <Button
